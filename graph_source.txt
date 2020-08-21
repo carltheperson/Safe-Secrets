@@ -1,9 +1,12 @@
 graph TB
     A[[React - frontend]] -.- B[Nginx - serving React app]
-    A --> C[Flask - encryption program + API]
+    A --> C[Nginx - exposing API]
+    D[Flask - encryption program + API] --> C
     C --> A
-    D[(Postgress - external database)] -.- C
-    C -.- D
+    C --> D
+    E[(Postgres - external database)] -.- D
+    D -.- E
+
   
 {
   "theme": "neutral"

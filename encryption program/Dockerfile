@@ -4,8 +4,6 @@ WORKDIR /flask_app
 
 RUN apt update
 
-RUN apt install nginx -y
-
 RUN apt install gunicorn -y
 
 RUN apt install python3 -y
@@ -18,12 +16,8 @@ RUN pip3 install -r requirements.txt
 
 COPY app ./app
 
-COPY nginx.conf /etc/nginx/conf.d/
+CMD gunicorn -w 1 app:app -b 0.0.0.0:8000
 
-COPY start_application.sh .
-
-CMD bash start_application.sh
-
-EXPOSE 80
+EXPOSE 8000
 
 # docker build -t carlriis/flask_app .
