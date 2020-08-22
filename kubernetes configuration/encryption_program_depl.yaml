@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: encryption-program
+  labels:
+    app: encryption-program
+spec:
+  selector:
+    matchLabels:
+      app: encryption-program
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: encryption-program
+    spec:
+      containers:
+        - image: carlriis/flask_app_safe_secrets
+          imagePullPolicy: Always
+          name: encryption-program
+          ports:
+            - containerPort: 8000

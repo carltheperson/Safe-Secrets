@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-exposer
+  labels:
+    app: api-exposer
+spec:
+  selector:
+    matchLabels:
+      app: api-exposer
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: api-exposer
+    spec:
+      containers:
+        - image: carlriis/nginx_exposer_safe_secrets:latest
+          imagePullPolicy: Always
+          name: nginx-exposer
+          ports:
+            - containerPort: 80
