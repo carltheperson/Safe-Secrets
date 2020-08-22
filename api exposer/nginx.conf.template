@@ -4,7 +4,7 @@ server {
   server_name 192.0.2.0;
 
   location / {
-    proxy_pass http://encryption-program:8000;
+    proxy_pass ${API_URL}; 
   }
 
 }

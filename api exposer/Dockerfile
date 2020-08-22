@@ -1,9 +1,7 @@
-FROM nginx:stable
+FROM nginx:1.19
 
-WORKDIR /app
+ENV API_URL http://127.0.0.1:8000
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf 
+COPY nginx.conf.template /etc/nginx/templates/default.conf.template 
 
 EXPOSE 80
-
-# docker build -t carlriis/nginx_exposer .

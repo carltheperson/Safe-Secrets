@@ -22,6 +22,9 @@ spec:
       containers:
         - image: carlriis/flask_app_safe_secrets
           imagePullPolicy: Always
-          name: encryption-program
+          name: flask-app
+          env:
+            - name: FLASK_PORT
+              value: "8000"
           ports:
             - containerPort: 8000

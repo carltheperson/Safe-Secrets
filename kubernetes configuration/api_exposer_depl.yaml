@@ -20,8 +20,11 @@ spec:
         app: api-exposer
     spec:
       containers:
-        - image: carlriis/nginx_exposer_safe_secrets:latest
+        - image: carlriis/nginx_exposer_safe_secrets
           imagePullPolicy: Always
           name: nginx-exposer
+          env:
+            - name: API_URL
+              value: "http://encryption-program:8000"
           ports:
             - containerPort: 80
