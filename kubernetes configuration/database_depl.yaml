@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: database
+  labels:
+    app: database
+spec:
+  selector:
+    matchLabels:
+      app: database
+  replicas: 1 # important
+  template:
+    metadata:
+      labels:
+        app: database
+    spec:
+      containers:
+        - image: carlriis/redis_database_safe_secrets
+          imagePullPolicy: Always
+          name: redis-database
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - mountPath: "/data"
+              name: database-pv
+      volumes:
+        - name: database-pv
+          persistentVolumeClaim:
+            claimName: database-pvc
