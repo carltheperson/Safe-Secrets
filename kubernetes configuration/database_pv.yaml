@@ -4,10 +4,11 @@ metadata:
   name: database-pv
   labels:
     type: local
+    for: redisData
 spec:
-  storageClassName: manual
+  storageClassName: standard
   capacity:
-    storage: 1Gi
+    storage: 50Mi
   accessModes:
     - ReadWriteOnce
   hostPath:
