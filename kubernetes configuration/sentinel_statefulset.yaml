@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: sentinel
+spec:
+  serviceName: sentinel
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sentinel
+  template:
+    metadata:
+      labels:
+        app: sentinel
+    spec:
+      initContainers:
+        - name: config
+          image: carlriis/sentinel_init_safe_secrets
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: redis-config
+              mountPath: /etc/redis/
+      containers:
+        - name: sentinel
+          image: redis
+          command: ["redis-sentinel"]
+          args: ["/etc/redis/sentinel.conf"]
+          ports:
+            - containerPort: 5000
+              name: sentinel
+          volumeMounts:
+            - name: redis-config
+              mountPath: /etc/redis/
+      volumes:
+        - name: redis-config
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sentinel
+spec:
+  clusterIP: None
+  ports:
+    - port: 5000
+      targetPort: 5000
+      name: sentinel
+  selector:
+    app: sentinel
