@@ -39,4 +39,6 @@ sentinel failover-timeout mymaster 60000
 sentinel parallel-syncs mymaster 1
 sentinel auth-pass mymaster $REDIS_PASSWORD
 " > /etc/redis/sentinel.conf
+cp /etc/redis/sentinel.conf /etc/redis/sentinel_init.conf
+
 cat /etc/redis/sentinel.conf
