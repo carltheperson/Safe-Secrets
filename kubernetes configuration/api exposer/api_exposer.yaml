@@ -20,7 +20,7 @@ spec:
         app: api-exposer
     spec:
       containers:
-        - image: carlriis/nginx_exposer_safe_secrets
+        - image: nginx
           imagePullPolicy: Always
           name: nginx-exposer
           env:
@@ -28,7 +28,13 @@ spec:
               value: "http://encryption-program:8000"
           ports:
             - containerPort: 80
-
+          volumeMounts:
+            - name: nginx-conf
+              mountPath: /etc/nginx/templates/
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-template-file
 ---
 apiVersion: v1
 kind: Service
@@ -42,3 +48,17 @@ spec:
       targetPort: 80
   selector:
     app: api-exposer
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-template-file
+data:
+  default.conf.template: |
+    server {
+      listen 80;
+      server_name 192.0.2.0;
+      location / {
+        proxy_pass ${API_URL}; 
+      }
+    }
