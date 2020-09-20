@@ -19,19 +19,29 @@ spec:
       labels:
         app: entrypoint
     spec:
+      initContainers:
+        - name: files-to-serve
+          image: carlriis/react_app_safe_secrets
+          volumeMounts:
+            - name: web-files
+              mountPath: /web_export
       containers:
-        - image: nginx
+        - name: nginx-exposer
+          image: nginx
           imagePullPolicy: Always
-          name: nginx-exposer
           env:
             - name: API_URL
               value: "http://encryption-program:8000"
           ports:
             - containerPort: 80
           volumeMounts:
+            - name: web-files
+              mountPath: /home/www
             - name: nginx-conf
               mountPath: /etc/nginx/templates/
       volumes:
+        - name: web-files
+          emptyDir: {}
         - name: nginx-conf
           configMap:
             name: nginx-template-file
@@ -59,7 +69,7 @@ data:
       listen 80;
       server_name 192.0.2.0;
       location / {
-        root /home;
+        root /home/www;
         index index.html;
       }
       location ^~ /api/ {
