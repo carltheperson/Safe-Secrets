@@ -18,6 +18,12 @@ spec:
           image: redis
           command: ["bash"]
           args: ["/start/startup.sh"]
+          env:
+            - name: MASTERAUTH
+              valueFrom:
+                secretKeyRef:
+                  name: redis-password
+                  key: password
           volumeMounts:
             - name: redis-config
               mountPath: /etc/redis/
@@ -102,6 +108,8 @@ data:
       echo "slaveof $MASTER 6379" >> /redis-tmp/redis.conf
     fi
 
-    cp /redis-tmp/redis.conf /etc/redis
+    echo "Adding password"
+    echo "masterauth $MASTERAUTH" >> /redis-tmp/redis.conf
+    echo "requirepass $MASTERAUTH" >> /redis-tmp/redis.conf
 
-    echo "$(ls /etc/redis/)"
+    cp /redis-tmp/redis.conf /etc/redis

@@ -18,6 +18,12 @@ spec:
           image: redis
           command: ["bash"]
           args: ["/start/startup.sh"]
+          env:
+            - name: MASTERAUTH
+              valueFrom:
+                secretKeyRef:
+                  name: redis-password
+                  key: password
           volumeMounts:
             - name: redis-config
               mountPath: /etc/redis/
@@ -60,7 +66,6 @@ metadata:
   name: sentinel-starter-script
 data:
   startup.sh: |
-    REDIS_PASSWORD=a-very-complex-password-here
     STARTER_MS=redis-0.redis.redis.svc.cluster.local
 
     MASTER=
@@ -68,11 +73,11 @@ data:
     while [ -z "$MASTER" ]
     do
       echo "Checking if starter master/slave is online"
-      if [ "$(redis-cli --no-auth-warning --raw -h $STARTER_MS -a $REDIS_PASSWORD ping)" = "PONG" ]; then
+      if [ "$(redis-cli --no-auth-warning --raw -h $STARTER_MS -a $MASTERAUTH ping)" = "PONG" ]; then
         echo "Starter master/slave is online"
         echo "Extracting who the master is"
 
-        RESPONSE=$(redis-cli --no-auth-warning --raw -h $STARTER_MS -a $REDIS_PASSWORD info replication)
+        RESPONSE=$(redis-cli --no-auth-warning --raw -h $STARTER_MS -a $MASTERAUTH info replication)
 
         ROLE=$(echo "$RESPONSE" | grep "role:" | cut -d ":" -f2)
 
@@ -97,7 +102,7 @@ data:
     sentinel down-after-milliseconds mymaster 5000
     sentinel failover-timeout mymaster 60000
     sentinel parallel-syncs mymaster 1
-    sentinel auth-pass mymaster $REDIS_PASSWORD
+    sentinel auth-pass mymaster $MASTERAUTH
     " > /etc/redis/sentinel.conf
     cp /etc/redis/sentinel.conf /etc/redis/sentinel_init.conf
 

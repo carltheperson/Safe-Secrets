@@ -59,6 +59,11 @@ data:
       listen 80;
       server_name 192.0.2.0;
       location / {
+        root /home;
+        index index.html;
+      }
+      location ^~ /api/ {
+        rewrite ^/api(.*)$ $1 break;
         proxy_pass ${API_URL}; 
       }
     }

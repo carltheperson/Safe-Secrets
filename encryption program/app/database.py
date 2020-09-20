@@ -1,11 +1,13 @@
+from redis.sentinel import Sentinel
+import os
+
 class SecretNoneException(Exception):
   def __init__(self, message="Secret None"):
     super(SecretNoneException, self).__init__(message)
 
-from redis.sentinel import Sentinel
 sentinel = Sentinel([("sentinel-0.sentinel.redis.svc.cluster.local", 5000), ("sentinel-1.sentinel.redis.svc.cluster.local", 5000), ("sentinel-2.sentinel.redis.svc.cluster.local", 5000)])
-master = sentinel.master_for('mymaster', socket_timeout=0.3, password="a-very-complex-password-here")
-slave = sentinel.slave_for('mymaster', socket_timeout=0.3, password="a-very-complex-password-here")
+master = sentinel.master_for('mymaster', socket_timeout=0.3, password=os.environ["MASTERAUTH"])
+slave = sentinel.slave_for('mymaster', socket_timeout=0.3, password=os.environ["MASTERAUTH"])
 
 class DatabaseInteractor():
 

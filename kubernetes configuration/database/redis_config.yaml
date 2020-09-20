@@ -11,8 +11,8 @@ data:
     #
     # ./redis-server /path/to/redis.conf
 
-    masterauth a-very-complex-password-here
-    requirepass a-very-complex-password-here
+    #masterauth a-very-complex-password-here
+    #requirepass a-very-complex-password-here
 
     # Note on units: when memory size is needed, it is possible to specify
     # it in the usual form of 1k 5GB 4M and so forth:

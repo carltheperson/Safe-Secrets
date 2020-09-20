@@ -26,6 +26,12 @@ spec:
           env:
             - name: FLASK_PORT
               value: "8000"
+          env:
+            - name: MASTERAUTH
+              valueFrom:
+                secretKeyRef:
+                  name: redis-password
+                  key: password
           ports:
             - containerPort: 8000
 ---
