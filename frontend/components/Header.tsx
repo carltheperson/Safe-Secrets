@@ -4,11 +4,13 @@ const Header = () => {
   return (
     <div>
       <div className="container">
-        <h1>🔒 Safe Secrets</h1>
+        <Link href="/">
+          <h1>🔒 Safe Secrets</h1>
+        </Link>
         <ul>
           <li>
             <Link href="/save-secret">
-              <a>Save seceret</a>
+              <a>Save secret</a>
             </Link>
           </li>
           <li>
@@ -24,6 +26,7 @@ const Header = () => {
             font-family: "Roboto", Arial, Helvetica, sans-serif;
             font-size: 2em;
             margin: 10px;
+            cursor: pointer;
           }
           ul {
             display: flex;

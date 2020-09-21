@@ -24,6 +24,23 @@ const Layout: React.FC<Props> = ({ children }) => {
           .text {
             font-family: "Martel", serif;
             font-size: 1em;
+            margin-bottom: 0;
+          }
+          .big-text {
+            font-size: 2.25em;
+            margin-bottom: 10px;
+          }
+          .input {
+            width: 90%;
+            border: black 2px solid;
+            font-size: 0.8em;
+            border-radius: 7.5px;
+            padding: 5px;
+            box-shadow: 0px 11px 24px -8px rgba(0, 0, 0, 0.3);
+          }
+          .big-input {
+            resize: none;
+            height: 200px;
           }
           .button {
             font-family: "Martel", serif;
