@@ -26,6 +26,7 @@ const retrieveSecret = () => {
       .catch((error) => {
         if (error.response.data.errorMsg) {
           setErrorField(error.response.data.errorMsg);
+          setResponseField("");
         }
       });
   };
