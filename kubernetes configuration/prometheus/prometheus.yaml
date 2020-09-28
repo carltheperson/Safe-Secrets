@@ -35,4 +35,6 @@ spec:
           - apps
           - prometheus-monitor
           - node-exporter
+          - api-server
+          - kubelet
   version: v2.20.0
