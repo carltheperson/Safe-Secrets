@@ -37,4 +37,5 @@ spec:
           - node-exporter
           - api-server
           - kubelet
+          - kubelet-service-monitor
   version: v2.20.0
