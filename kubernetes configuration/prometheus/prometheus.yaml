@@ -34,4 +34,5 @@ spec:
         values:
           - apps
           - prometheus-monitor
+          - node-exporter
   version: v2.20.0
