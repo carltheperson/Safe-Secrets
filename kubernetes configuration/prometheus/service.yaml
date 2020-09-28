@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    prometheus: k8s
+    service: prometheus
+  name: prometheus-k8s
+  namespace: monitoring
+spec:
+  ports:
+    - name: web
+      port: 9090
+      targetPort: 9090
+  selector:
+    app: prometheus
+  sessionAffinity: ClientIP
