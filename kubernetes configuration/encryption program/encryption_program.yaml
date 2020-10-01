@@ -38,10 +38,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
+  labels:
+    prometheus: encryption-program
   name: encryption-program
 spec:
   ports:
-    - port: 8000
+    - name: http
+      port: 8000
       protocol: TCP
       targetPort: 8000
   selector:

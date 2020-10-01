@@ -1,18 +1,17 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: prometheus-k8s
-  namespace: monitoring
+  name: prometheus
+  namespace: apps
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: prometheus-k8s
+  name: prometheus
 rules:
   - apiGroups:
       - ""
     resources:
-      - nodes/metrics
       - services
       - endpoints
       - pods
@@ -28,12 +27,12 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: prometheus-k8s
+  name: prometheus
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: prometheus-k8s
+  name: prometheus
 subjects:
   - kind: ServiceAccount
-    name: prometheus-k8s
-    namespace: monitoring
+    name: prometheus
+    namespace: apps

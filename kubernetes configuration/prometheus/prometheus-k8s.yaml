@@ -4,7 +4,7 @@ metadata:
   labels:
     prometheus: k8s
     app: prometheus
-  name: prometheus-standalone
+  name: prometheus-k8s
   namespace: monitoring
 spec:
   alerting:
@@ -17,7 +17,7 @@ spec:
     kubernetes.io/os: linux
   podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
-  replicas: 2
+  replicas: 1
   ruleSelector:
     matchLabels:
       prometheus: k8s
@@ -26,13 +26,12 @@ spec:
     fsGroup: 2000
     runAsNonRoot: true
     runAsUser: 1000
-  serviceAccountName: prometheus-standalone
+  serviceAccountName: prometheus-k8s
   serviceMonitorSelector:
     matchExpressions:
       - key: k8s-app
         operator: In
         values:
-          - apps
           - prometheus-monitor
           - node-exporter
           - api-server

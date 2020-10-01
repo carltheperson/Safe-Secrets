@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    component: controller
+    name: prometheus-monitor
+    k8s-app: apps
+  name: apps
+spec:
+  endpoints:
+    - port: http
+      interval: 30s
+  selector:
+    matchLabels:
+      prometheus: encryption-program
+  namespaceSelector:
+    matchNames:
+      - apps

@@ -4,9 +4,7 @@ ENV FLASK_PORT 8000
 
 WORKDIR /flask_app
 
-RUN apt update
-
-RUN apt install gunicorn -y
+RUN apt update --fix-missing
 
 RUN apt install python3 -y
 
@@ -18,4 +16,4 @@ RUN pip3 install -r requirements.txt
 
 COPY app ./app
 
-CMD gunicorn -w 1 app:app -b 0.0.0.0:$FLASK_PORT
+CMD uwsgi --http 0.0.0.0:$FLASK_PORT --module app:app --processes 1
