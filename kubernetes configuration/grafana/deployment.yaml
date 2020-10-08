@@ -124,9 +124,12 @@ spec:
       volumes:
         - emptyDir: {}
           name: grafana-storage
-        - name: grafana-datasources
-          secret:
-            secretName: grafana-datasources
+          
+        # Custom
+        - configMap:
+            name: grafana-datasources
+          name: grafana-datasources 
+
         - configMap:
             name: grafana-dashboards
           name: grafana-dashboards

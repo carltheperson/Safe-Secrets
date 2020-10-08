@@ -1,0 +1,30 @@
+apiVersion: v1
+data:
+  datasources.yaml: |-
+    {
+      "apiVersion": 1,
+      "datasources": [
+          {
+              "access": "proxy",
+              "editable": false,
+              "name": "prometheus-k8s",
+              "orgId": 1,
+              "type": "prometheus",
+              "url": "http://prometheus-k8s.monitoring.svc:9090",
+              "version": 1
+          },
+          {
+              "access": "proxy",
+              "editable": false,
+              "name": "prometheus-apps",
+              "orgId": 1,
+              "type": "prometheus",
+              "url": "http://prometheus-apps.apps.svc:9090",
+              "version": 1
+          }
+      ]
+    }
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
