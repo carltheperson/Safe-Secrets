@@ -13,6 +13,12 @@ Here is the flow of the application:
 It's made with Flask in Python. It uses the encryption library Fernet that encrypts using AES (Advanced Encryption Standard). The password provided by the user is hashed using SHA256 which Fernet will accept as a key.
 The API uses Gunicorn as a WSGI which is exposed by Nginx.
 
+### Frontend
+
+The frontend is made with React and Next.js. It is written in TypeScript. The frontend allows for easy interaction with the backend, so that users can save and retrieve secrets. The final result when building the frontend, is a small Apline Docker image that contains the HTML, CSS and JavaScript assets
+
+![](frontend%20screenshot.png)
+
 ### Database
 
 It's made with Redis. The setup uses 1 master and 2 slaves and is created using a StatefulSet. There is also another StatefulSet that creates 3 sentinels to trigger a failover if the master fails. Both kinds of pods in the StatefulSets needed special Shell scripts to find the master when initializing.
