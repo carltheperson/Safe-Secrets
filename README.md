@@ -1,8 +1,8 @@
 # 🔒 Safe Secrets
 
-**Personal note** _I will use this project to learn my self container orchestration trough Kubernetes. I will also use it to learn other skills concerning robust full-stack applications._
+**Personal note** _I used this project to learn my self container orchestration trough Kubernetes. I also used it to learn other skills concerning robust full-stack applications._
 
-The application will let you save your secrets safely by encrypting them. Below is an owerview of how it works.
+The application lets you save your secrets safely by encrypting them. Below is an owerview of how it works.
 
 Here is the flow of the application:
 
