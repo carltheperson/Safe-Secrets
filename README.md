@@ -2,7 +2,7 @@
 
 **Personal note** _I used this project to learn my self container orchestration trough Kubernetes. I also used it to learn other skills concerning robust full-stack applications._
 
-The application lets you save your secrets safely by encrypting them. Below is an owerview of how it works.
+The application lets you save your secrets safely by encrypting them. Below is an overview of how it works.
 
 Here is the flow of the application:
 
