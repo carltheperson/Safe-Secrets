@@ -15,7 +15,7 @@ The API uses Gunicorn as a WSGI which is exposed by Nginx.
 
 ### Frontend
 
-The frontend is made with React and Next.js. It is written in TypeScript. The frontend allows for easy interaction with the backend, so that users can save and retrieve secrets. The final result when building the frontend, is a small Apline Docker image that contains the HTML, CSS and JavaScript assets
+The frontend is made with React and Next.js. It is written in TypeScript. The frontend allows for easy interaction with the backend, so that users can save and retrieve secrets. The final result when building the frontend, is a small Alpine Docker image that contains the HTML, CSS and JavaScript assets
 
 ![](frontend%20screenshot.png)
 
