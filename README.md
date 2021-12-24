@@ -21,7 +21,7 @@ The frontend is made with React and Next.js. It is written in TypeScript. The fr
 
 ### Database
 
-It's made with Redis. The setup uses 1 master and 2 slaves and is created using a StatefulSet. There is also another StatefulSet that creates 3 sentinels to trigger a failover if the master fails. Both kinds of pods in the StatefulSets needed special Shell scripts to find the master when initializing.
+It's made with Redis. The setup uses 1 main and 2 replicas and is created using a StatefulSet. There is also another StatefulSet that creates 3 sentinels to trigger a failover if the main fails. Both kinds of pods in the StatefulSets needed special Shell scripts to find the main when initializing.
 Both RDB and AOF persistence is enabled.
 
 ### Monitoring
@@ -29,6 +29,7 @@ Both RDB and AOF persistence is enabled.
 The monitoring system uses Prometheus. To automate the configuration process it uses the Prometheus operator, so that Prometheus can find things to monitor using the ServiceMonitior. Much of the YAML is taken from the official kube-prometheus repositories manifests directory.
 
 Things that are monitored are:
+
 - The Prometheus instance itself
 - A node-exporter for the nodes the cluster is hosted on
 - Kubernetes metrics from the api server, kubelet and kube-state-metrics
